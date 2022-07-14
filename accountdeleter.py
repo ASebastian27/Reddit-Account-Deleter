@@ -38,7 +38,7 @@ def deleteComments():
     driver.get('https://old.reddit.com/user/'+ name +'/comments/')
     while True:
         try:
-            driver.find_element_by_xpath("//*[text()='delete']").click()
+            driver.find_element(By.XPATH, "//*[text()='delete']").click()
         except:
             print ('\033[92m' + "[DONE] Deleting comments" + '\x1b[0m')
             questionUser()
