@@ -12,19 +12,26 @@ def pressEnter():
 
 def deletePosts():
     driver.get('https://www.reddit.com/user/'+ name +'/posts/')
+    
+    time.sleep(1)
+    try:
+        driver.find_element(By.CLASS_NAME, "icon-close").click()
+    except:
+        pass
+
     while True:
         try:
-            driver.find_element_by_css_selector("[aria-label='more options']").click()
+            driver.find_element(By.CLASS_NAME, "_38GxRFSqSC-Z2VLi5Xzkjy").click()
         except:
             print('\033[92m' + "[DONE] Deleting posts" + '\x1b[0m')
             questionUser()
             break
         else:
-            for i in range (5):
-                pressTab()
-            pressEnter()
-            driver.find_element_by_xpath("//*[text()='delete post']").click()
-            driver.refresh()
+            try:
+                driver.find_element(By.CLASS_NAME, "icon-delete").click()
+                driver.find_element(By.CLASS_NAME, "_17UyTSs2atqnKg9dIq5ERg").click()
+            except:
+                driver.refresh()
             time.sleep(1)
 
 def deleteComments():
