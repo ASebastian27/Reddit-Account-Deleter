@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 import time
 
@@ -98,9 +99,9 @@ password = input("Password: ")
 
 # LOG IN TO REDDIT 
 driver.get("https://www.reddit.com/login/")
-driver.find_element_by_id('loginUsername').send_keys(name)
-driver.find_element_by_id('loginPassword').send_keys(password)
-driver.find_element_by_xpath('/html/body/div/div/div[2]/div/form/div[1]/fieldset[5]/button').click()
+driver.find_element(By.ID, 'loginUsername').send_keys(name)
+driver.find_element(By.ID, 'loginPassword').send_keys(password)
+driver.find_element(By.CLASS_NAME, 'AnimatedForm__submitButton').click()
 time.sleep(10)
 #
 
