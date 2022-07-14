@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 import time
 
@@ -11,26 +12,33 @@ def pressEnter():
 
 def deletePosts():
     driver.get('https://www.reddit.com/user/'+ name +'/posts/')
+    
+    time.sleep(1)
+    try:
+        driver.find_element(By.CLASS_NAME, "icon-close").click()
+    except:
+        pass
+
     while True:
         try:
-            driver.find_element_by_css_selector("[aria-label='more options']").click()
+            driver.find_element(By.CLASS_NAME, "_38GxRFSqSC-Z2VLi5Xzkjy").click()
         except:
             print('\033[92m' + "[DONE] Deleting posts" + '\x1b[0m')
             questionUser()
             break
         else:
-            for i in range (5):
-                pressTab()
-            pressEnter()
-            driver.find_element_by_xpath("//*[text()='delete post']").click()
-            driver.refresh()
+            try:
+                driver.find_element(By.CLASS_NAME, "icon-delete").click()
+                driver.find_element(By.CLASS_NAME, "_17UyTSs2atqnKg9dIq5ERg").click()
+            except:
+                driver.refresh()
             time.sleep(1)
 
 def deleteComments():
     driver.get('https://old.reddit.com/user/'+ name +'/comments/')
     while True:
         try:
-            driver.find_element_by_xpath("//*[text()='delete']").click()
+            driver.find_element(By.XPATH, "//*[text()='delete']").click()
         except:
             print ('\033[92m' + "[DONE] Deleting comments" + '\x1b[0m')
             questionUser()
@@ -98,9 +106,9 @@ password = input("Password: ")
 
 # LOG IN TO REDDIT 
 driver.get("https://www.reddit.com/login/")
-driver.find_element_by_id('loginUsername').send_keys(name)
-driver.find_element_by_id('loginPassword').send_keys(password)
-driver.find_element_by_xpath('/html/body/div/div/div[2]/div/form/div[1]/fieldset[5]/button').click()
+driver.find_element(By.ID, 'loginUsername').send_keys(name)
+driver.find_element(By.ID, 'loginPassword').send_keys(password)
+driver.find_element(By.CLASS_NAME, 'AnimatedForm__submitButton').click()
 time.sleep(10)
 #
 
